@@ -1,7 +1,12 @@
 {% extends "base.html" %} {%load static%}
 {% block title %}HOME | HOSPITAL{% endblock %}
 {% block content %}
-<img src="{% static 'images/hospitalpatient.jpg' %}" alt="">
     <h2>Welcome To DocNation Hospital</h2>
     <p>World known hospital for World class treatment</p>
+    <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+</form>
+        <p>Already have an account? <a href="{%url 'login'%}">Login here</a></p>
 {% endblock %}
