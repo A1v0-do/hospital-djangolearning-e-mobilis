@@ -2,7 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from patients.forms import PatientForm
-
+from rest_framework import viewsets
+from patients.models import Patient
+from rest_framework.permissions import AllowAny
+from patients.serializers import PatientSerializer
 # Create your views here.
 def index (request):
     if request.method == 'POST':
@@ -46,3 +49,8 @@ def add_patient(request):
     else:
         form= PatientForm()
     return render(request,'add_patient.html',{'form':form})
+
+class PatientViewSet(viewsets.ModelViewSet):
+    queryset= Patient.objects.all()
+    serializer_class = PatientSerializer
+    permission_classes = [AllowAny]
